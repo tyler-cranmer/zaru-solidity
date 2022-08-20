@@ -14,12 +14,18 @@ describe('Governance Token', () => {
   beforeEach(async () => {
     [deployer, addr1] = await ethers.getSigners();
     Token = await ethers.getContractFactory('GovernanceToken');
-    token = await Token.deploy(
-      deployer.address
-    );
+    token = await Token.deploy(deployer.address);
   });
 
   describe('Deployment', () => {
+    it('Should have the correct token name', async () => {
+      expect(await token.name()).to.equal('Zaru');
+    });
+
+    it('Should have the correct token symbol', async () => {
+      expect(await token.symbol()).to.equal('RU');
+    });
+
     it('Should set the right total supply', async () => {
       expect((await token.totalSupply()).toString()).to.equal(
         '10000000000000000000000000'
@@ -29,6 +35,7 @@ describe('Governance Token', () => {
       const balance = await token.balanceOf(deployer.address);
       expect(balance.toString()).to.equal('10000000000000000000000000');
     });
-
   });
 });
+
+module.exports.tags = ['tokentest'];

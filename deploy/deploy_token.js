@@ -36,6 +36,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   log(
     `\n Verify with: \n npx hardhat verify --network ${networkName} ${tokenContract.address} "${Token.args}"`
   );
+
 };
 
 module.exports.tags = ['token'];

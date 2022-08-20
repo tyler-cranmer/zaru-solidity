@@ -7,10 +7,10 @@ const networkConfig = {
   },
   1: {
     name: 'mainnet',
-    },
-    420: {
-      name: 'goerli_optimism'
-  }
+  },
+  420: {
+    name: 'goerli_optimism',
+  },
 };
 
 module.exports = {
