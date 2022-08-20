@@ -31,7 +31,7 @@ describe('Staking Contract', () => {
       rewardTokenAdd = rewardToken.address;
       stakingTokenAdd = stakingToken.address;
       Stake = await ethers.getContractFactory('StakingRewardsV2'); 
-      stake = Stake.deploy(multisig, rewardTokenAdd,stakingTokenAdd 
+      // stake = Stake.deploy(multisig, rewardTokenAdd,stakingTokenAdd 
       
   });
 });

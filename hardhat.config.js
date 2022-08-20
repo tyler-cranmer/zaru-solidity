@@ -2,6 +2,7 @@ require('@nomiclabs/hardhat-waffle');
 require('@nomiclabs/hardhat-ethers');
 require('@nomiclabs/hardhat-truffle5');
 require('@nomiclabs/hardhat-etherscan');
+require('@ericxstone/hardhat-blockscout-verify');
 require('@nomiclabs/hardhat-solhint');
 require('hardhat-deploy');
 require('solidity-coverage');
@@ -11,6 +12,7 @@ const MAINNET_RPC_URL =
   process.env.MAINNET_RPC_URL ||
   process.env.ALCHEMY_MAINNET_RPC_URL ||
   'https://eth-mainnet.alchemyapi.io/v2/your-api-key';
+const GOERLI_OP_RPC = process.env.GOERLI_OP_RPC;
 const RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL;
 const MNEMONIC = process.env.MNEMONIC;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
@@ -24,32 +26,54 @@ module.exports = {
       accounts: {},
     },
     localhost: {},
-    // ganache: {
-    //   url: 'http://localhost:8545',
-    //   accounts: {
-    //     mnemonic: MNEMONIC,
-    //   },
-    // },
-    // mainnet: {
-    //   url: MAINNET_RPC_URL,
-    //   accounts: {
-    //     mnemonic: MNEMONIC,
-    //   },
-    //   saveDeployments: true,
-    // },
-    // rinkeby: {
-    //   url: RINKEBY_RPC_URL,
-    //   accounts: {
-    //     mnemonic: MNEMONIC,
-    //   },
-    //   saveDeployments: true,
-    // },
+    goerli_optimism: {
+      url: GOERLI_OP_RPC,
+      accounts: {
+        mnemonic: MNEMONIC,
+      },
+    },
+    ganache: {
+      url: 'http://localhost:8545',
+      accounts: {
+        mnemonic: MNEMONIC,
+      },
+    },
+    mainnet: {
+      url: MAINNET_RPC_URL,
+      accounts: {
+        mnemonic: MNEMONIC,
+      },
+      saveDeployments: true,
+    },
+    rinkeby: {
+      url: RINKEBY_RPC_URL,
+      accounts: {
+        mnemonic: MNEMONIC,
+      },
+      saveDeployments: true,
+    },
   },
   etherscan: {
     // Your API key for Etherscan
     // Obtain one at https://etherscan.io/
-    apiKey: ETHERSCAN_API_KEY,
+    apiKey: {
+      mainnet: ETHERSCAN_API_KEY,
+      optimism: 'YOUR_OPTIMISTIC_ETHERSCAN_API_KEY',
+      goerliOptimism: 'YOUR_OPTIMISTIC_ETHERSCAN_API_KEY',
+      arbitrumOne: 'YOUR_ARBISCAN_API_KEY',
+    },
   },
+  // blockscoutVerify: {
+  //   blockscoutURL: "<BLOCKSCOUT_EXPLORER_URL>",
+  //   contracts: {
+  //     "<CONTRACT_NAME>": {
+  //       compilerVersion: SOLIDITY_VERSION.<CONTRACT_COMPILER_VERSION>, // checkout enum SOLIDITY_VERSION
+  //       optimization: true,
+  //       evmVersion: EVM_VERSION.<EVM_VERSION>, // checkout enum SOLIDITY_VERSION
+  //       optimizationRuns: 999999,
+  //     },
+  //   },
+  // },
   namedAccounts: {
     deployer: {
       default: 0, // here this will by default take the first account as deployer
