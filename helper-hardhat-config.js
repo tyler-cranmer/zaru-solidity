@@ -1,15 +1,18 @@
 const networkConfig = {
-  31337: {
-    name: 'localhost',
+  1: {
+    name: 'mainnet',
   },
   4: {
     name: 'rinkeby',
   },
-  1: {
-    name: 'mainnet',
+  10: {
+    name: 'optimism',
   },
   420: {
     name: 'goerli_optimism',
+  },
+    31337: {
+    name: 'localhost',
   },
 };
 

@@ -2,8 +2,14 @@ const { ethers } = require('hardhat');
 let { networkConfig } = require('../helper-hardhat-config');
 require('dotenv').config();
 
+
+// 
 const contract_name = 'GovernanceToken';
+const token_name = 'Zaru';
+const token_symbol = 'RU';
 const mint_to_address = process.env.DEPLOYER_ACCOUNT_ADDRESS;
+
+
 module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deploy, log } = deployments;
   const { deployer } = await getNamedAccounts();
@@ -13,15 +19,14 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   // deploys contract
   const Token = await deploy(contract_name, {
     from: deployer,
-    args: [mint_to_address],
+    args: [mint_to_address, token_name, token_symbol],
     log: true,
   });
 
-  log(`You deployed a Token contract to ${Token.address}`);
-  log(`The RU tokens were sent to address: ${mint_to_address}`);
+  log(`You deployed ${contract_name} contract to address: ${Token.address}`);
 
-  const factory = await ethers.getContractFactory(contract_name); //grabs the NFFeet contract factory.
-  const accounts = await hre.ethers.getSigners(); //grabs an account.
+  const factory = await ethers.getContractFactory(contract_name); 
+  const accounts = await hre.ethers.getSigners(); 
   const signer = accounts[0];
 
   const tokenContract = new ethers.Contract(
@@ -30,11 +35,15 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     signer
   );
 
+  const name = await tokenContract.name();
+  const symbol = await tokenContract.symbol();
+
+  log(`The ${name} / ${symbol} tokens were sent to address: ${mint_to_address}`);
+
   const networkName = networkConfig[chainId]['name'];
 
-  // v1 contract
   log(
-    `\n Verify with: \n npx hardhat verify --network ${networkName} ${tokenContract.address} "${Token.args}"`
+    `\n Verify with: \n npx hardhat verify --network ${networkName} ${tokenContract.address} "${Token.args[0]}" "${Token.args[1]}" "${Token.args[2]}" `
   );
 
 };

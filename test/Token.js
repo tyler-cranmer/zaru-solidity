@@ -14,7 +14,7 @@ describe('Governance Token', () => {
   beforeEach(async () => {
     [deployer, addr1] = await ethers.getSigners();
     Token = await ethers.getContractFactory('GovernanceToken');
-    token = await Token.deploy(deployer.address);
+    token = await Token.deploy(deployer.address, "Zaru", "RU");
   });
 
   describe('Deployment', () => {
