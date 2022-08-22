@@ -38,4 +38,3 @@ describe('Governance Token', () => {
   });
 });
 
-module.exports.tags = ['tokentest'];

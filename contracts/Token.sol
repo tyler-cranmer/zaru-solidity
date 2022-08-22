@@ -5,9 +5,9 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /*
 * @title Governance Token Contract
-* @param to address, address to send the initial mint supply of tokens
-* @param minter address, authorizing address to mint more tokens
-* @param burner address, authorizing address to burn tokens
+* @param to address - address to send the initial mint supply of tokens
+* @param name - name of token 
+* @param symbol - symbol of token
 * @notice 10,000,000 initial mint
 */
 
