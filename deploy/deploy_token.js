@@ -3,10 +3,12 @@ let { networkConfig } = require('../helper-hardhat-config');
 require('dotenv').config();
 
 
-// 
+// Contract name 
 const contract_name = 'GovernanceToken';
-const token_name = 'Zaru';
-const token_symbol = 'RU';
+
+// Contract parameters
+const token_name = 'Test1';
+const token_symbol = 'ttone';
 const mint_to_address = process.env.DEPLOYER_ACCOUNT_ADDRESS;
 
 
