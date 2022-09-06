@@ -38,7 +38,7 @@ describe('Staking Contract', () => {
       one_week
     );
 
-    // Trasnfer 1000 stakingTokens to account 2
+    // Transfer 1000 stakingTokens to account 2
     const acc2_amount = ethers.utils.parseUnits('1000', 'ether');
     await stakingToken.connect(acc1).transfer(acc2.address, acc2_amount);
 
