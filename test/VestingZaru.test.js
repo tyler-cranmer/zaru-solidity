@@ -96,7 +96,7 @@ describe('Zaru Vesting Contract', () => {
 
         })
         it("should transfer correct amount of tokens during a random claim call", async () => {
-            
+
         })
 
         it("should set lastUpdate to new block timestamp after transfer", async () => {
@@ -106,3 +106,4 @@ describe('Zaru Vesting Contract', () => {
 });
 
 // it("should revert the contract because vestingDuration and vesting cliff")
+// adding new notes 
