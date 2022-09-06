@@ -106,4 +106,4 @@ describe('Zaru Vesting Contract', () => {
 });
 
 // it("should revert the contract because vestingDuration and vesting cliff")
-// adding new notes sd
+// adding new notes sd23i
