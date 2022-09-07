@@ -129,22 +129,55 @@ describe('Staking Contract', () => {
 
   describe('rewardPerToken Function', () => {
     it('should return rewardPerTokenStored value of 0 when total supply = 0', async () => {
-      rewardPerToken = await stake.rewardPerToken();
+      const rewardPerToken = await stake.rewardPerToken();
       expect(rewardPerToken).to.equal(0);
     });
 
     // NEED TO FINISH
-    it('should return correct rewardPerTokenStored value', async () => {expect(1).to.equal(0);});
+    it('should return correct rewardPerTokenStored value', async () => {
+      const amount = ethers.utils.parseUnits('50', 'ether');
+      // approve the staked contract to deposit account 1 tokens
+      await stakingToken.connect(acc1).approve(stake.address, amount);
+      // stake token amount
+      await stake.connect(acc1).stake(amount);
+
+      const lastTimeRewardApplicable = await stake.lastTimeRewardApplicable();
+      const lastUpdateTime = await stake.lastUpdateTime();
+      const rewardRate = await stake.rewardRate();
+      const totalSupply = await stake.totalSupply();
+      const rewardPerTokenStored = await stake.rewardPerTokenStored();
+
+      let expectedValue = lastUpdateTime.mul(rewardRate);
+      // expectedValue = expectedValue.mul(rewardRate)
+      // expectedValue = expectedValue.mul(1e18);
+      a = [
+        lastTimeRewardApplicable,
+        lastUpdateTime,
+        rewardRate,
+        totalSupply,
+        rewardPerTokenStored,
+      ];
+      for (i = 0; i < 5; i++) {
+        console.log(a[i]);
+      }
+
+      console.log('Expected', expectedValue);
+      expect(1).to.equal(0);
+    });
   });
 
   // NEED TO FINISH
   describe('earned function', () => {
-    it('should return the correct amount of reward tokens earned for an account', async () => {expect(1).to.equal(0);});
+    it('should return the correct amount of reward tokens earned for an account', async () => {
+      expect(1).to.equal(0);
+    });
   });
 
   // NEED TO FINISH
   describe('getRewardForDuration', () => {
-    it('should return correct reward rate for duration', async () => {expect(1).to.equal(0);});
+    it('should return correct reward rate for duration', async () => {
+      expect(1).to.equal(0);
+    });
   });
 
   describe('stake function', () => {
@@ -232,16 +265,17 @@ describe('Staking Contract', () => {
 
     it('should decrease account balance of staked tokens by amount withdrawn', async () => {
       await stake.connect(acc2).withdraw(withdraw_amount);
-      const balance = await stake.balanceOf(acc2.address)
+      const balance = await stake.balanceOf(acc2.address);
       expect(balance).to.equal(amount.sub(withdraw_amount));
-
     });
 
     it('Should transfer tokens back to user from Staked Token contract', async () => {
       const initial_token_balance = await stakingToken.balanceOf(acc2.address);
       await stake.connect(acc2).withdraw(withdraw_amount);
       const after_tx_token_balance = await stakingToken.balanceOf(acc2.address);
-      expect(after_tx_token_balance).to.equal(initial_token_balance.add(withdraw_amount));
+      expect(after_tx_token_balance).to.equal(
+        initial_token_balance.add(withdraw_amount)
+      );
     });
 
     it('should emit withdrawn event', async () => {
@@ -250,7 +284,6 @@ describe('Staking Contract', () => {
         .to.emit(stake, 'Withdrawn')
         .withArgs(acc2.address, withdraw_amount);
     });
-
   });
 
   describe('getReward function', () => {
@@ -270,28 +303,26 @@ describe('Staking Contract', () => {
 
     it('should set accouts reward balance to 0', async () => {
       await stake.connect(acc2).getReward();
-      reward_balance = await stake.rewards(acc2.address)
-      expect(reward_balance).to.equal(0)
+      reward_balance = await stake.rewards(acc2.address);
+      expect(reward_balance).to.equal(0);
     });
 
-    it('should transfer reward tokens to users account', async () => { //not a great test but does the job
-      const reward_balance = await stake.earned(acc2.address) // doesnt get the exact reward amount when getReward is called
+    it('should transfer reward tokens to users account', async () => {
+      //not a great test but does the job
+      const reward_balance = await stake.earned(acc2.address); // doesnt get the exact reward amount when getReward is called
       await stake.connect(acc2).getReward();
       const token_balance = await rewardToken.balanceOf(acc2.address);
       expect(token_balance).to.be.above(reward_balance);
-
     });
     it('should emit RewardPaid event', async () => {
       await expect(stake.connect(acc2).getReward()).to.emit(
         stake,
         'RewardPaid'
       );
-
     });
   });
 
   describe('exit function', () => {
-
     const stake_amount = ethers.utils.parseUnits('100', 'ether');
     const time_travel = 302400; // half way through duration for staking contract
 
@@ -306,17 +337,18 @@ describe('Staking Contract', () => {
       await network.provider.send('evm_mine');
     });
 
-
     //Need to finish
     it('should withdraw all total staked token balance of user', async () => {
-      expect(1).to.equal(0)
-
-
+      expect(1).to.equal(0);
     });
-    it('should withdraw all reward token for user', async () => {expect(1).to.equal(0);});
+    it('should withdraw all reward token for user', async () => {
+      expect(1).to.equal(0);
+    });
   });
 
   describe('notifyRewardAmount function', () => {
-    it('should set rewardrate', async () => {expect(1).to.equal(0);});
+    it('should set rewardrate', async () => {
+      expect(1).to.equal(0);
+    });
   });
 });
