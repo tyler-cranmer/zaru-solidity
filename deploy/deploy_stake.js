@@ -1,3 +1,9 @@
+/* 
+Deployment Script for OPI Staking Contract. 
+September 7th 2022
+*/
+
+
 const { ethers } = require('hardhat');
 let { networkConfig } = require('../helper-hardhat-config');
 require('dotenv').config();

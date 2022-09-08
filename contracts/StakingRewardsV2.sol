@@ -19,9 +19,9 @@ contract StakingRewardsV2 is RewardsDistributionRecipient, ReentrancyGuard {
 
     IERC20 public rewardsToken;
     IERC20 public stakingToken;
-    uint256 public periodFinish = 0; // Epoch time when farm finishes?
+    uint256 public periodFinish = 0; 
     uint256 public rewardRate = 0; 
-    uint256 public rewardsDuration; // i.e 7 days or 30 days. 
+    uint256 public rewardsDuration; 
     uint256 public lastUpdateTime;
     uint256 public rewardPerTokenStored;
 
@@ -34,7 +34,7 @@ contract StakingRewardsV2 is RewardsDistributionRecipient, ReentrancyGuard {
     /* ========== CONSTRUCTOR ========== */
 
     constructor(
-        address _rewardsDistribution, //owner contract. multisig gnosis
+        address _rewardsDistribution, 
         address _rewardsToken,
         address _stakingToken,
         uint256 _rewardsDuration
