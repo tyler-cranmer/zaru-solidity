@@ -8,14 +8,15 @@ let { networkConfig } = require('../helper-hardhat-config');
 require('dotenv').config();
 
 // Contract name
-const contract_name = 'VestingZaru';
+const contract_name = 'Vesting';
 
 // Contract parameters
 const ruTokenAddress = '';
 const recipientAddress = '';
 const vestingAmount = '';
-const vestingCliffDuration = '';
-const vestingDuration = '';
+const vestingBegin = '';
+const vestingCliff = '';
+const vestingEnd = '';
 
 module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deploy, log } = deployments;
@@ -30,8 +31,9 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
       ruTokenAddress,
       recipientAddress,
       vestingAmount,
-      vestingCliffDuration,
-      vestingDuration,
+      vestingBegin,
+      vestingCliff,
+      vestingEnd,
     ],
     log: true,
   });
@@ -51,20 +53,19 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const RuToken = await VestingContract.ruToken();
   const Recipient = await VestingContract.recipient();
   const VestingAmount = await VestingContract.vestingAmount();
-  const VestingDuration = await VestingContract.vestingDuration();
   const VestingBegin = await VestingContract.vestingBegin();
   const VestingCliff = await VestingContract.vestingCliff();
-  const VestingCliffDuration = VestingCliff.sub(VestingBegin);
+  const VestingEnd = await VestingContract.vestingEnd();
 
   log(
-    `\nContract Parameters:\nRu Token Address: ${RuToken} \nRecipient: ${Recipient} \nVesting Amount: ${VestingAmount}\nVesting Duration: ${VestingDuration}\nVestingCliff Duration: ${VestingCliffDuration}`
+    `\nContract Parameters:\nRu Token Address: ${RuToken} \nRecipient: ${Recipient} \nVesting Amount: ${VestingAmount}\nVesting Begin: ${VestingDuration}\nVestingCliff: ${VestingCliff}\nVestingEnd: ${VestingEnd}`
   );
     
     log(`\nVesting Start Date: ${VestingBegin}\nVesting Cliff`)
     const networkName = networkConfig[chainId]['name'];
     
     log(
-      `\n Verify with: \n npx hardhat verify --network ${networkName} ${VestingContract.address} "${Vest.args[0]}" "${Vest.args[1]}" "${Vest.args[2]}" "${Vest.args[3]}" "${Vest.args[4]}"`
+      `\n Verify with: \n npx hardhat verify --network ${networkName} ${VestingContract.address} "${Vest.args[0]}" "${Vest.args[1]}" "${Vest.args[2]}" "${Vest.args[3]}" "${Vest.args[4]}" "${Vest.args[5]}"`
     );
 };
 
